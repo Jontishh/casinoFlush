@@ -1,5 +1,5 @@
 import random
-credit = 100
+
 keepPlayingOptions = {"1": "Try again", "2": "Go back to main menu"}
 
 def menu (opt):
@@ -27,11 +27,16 @@ def showRow (row):
 
 def slotmachineGame (credit):
     earning = 0
+    keepPlayingOptions = {"1": "Try again", "2": "Go back to main menu"}
     symbols = ["✨", "❌", "⭐"]
     keepPlaying = True
     while keepPlaying == True:
         print (f"You have {credit + earning} credits.")
-        bet = (int(input('How much do you want to bet?: ')))
+        try:
+            bet = (int(input('How much do you want to bet?: ')))
+        except:
+            print ("\nInvalid input\n")
+            continue
         while bet > credit + earning or bet < 0:
             print (f'Invalid bet amount [{bet}], your wallet: {credit + earning}')
             bet = (int(input('How much do you want to bet?: ')))
@@ -53,13 +58,23 @@ def slotmachineGame (credit):
         print ()
         
         if rowTwo[0] == rowTwo[1] and rowTwo[1] == rowTwo[2]:
-            earning = 2*bet
-            print (f"You won {bet*2} credits!")
+            earning += 2*bet
+            if rowThree[0] == rowTwo[1] and rowTwo[1] == rowOne[2]:
+                earning += 2*bet
+                if rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
+                    earning += 2*bet
+            elif rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
+                earning += 2*bet          
+            print (f"You won {earning} credits!")
         elif rowThree[0] == rowTwo[1] and rowTwo[1] == rowOne[2]:
-            earning = 2*bet
-            print (f"You won {bet*2} credits!")
+            earning += 2*bet
+            if rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
+                earning += 2*bet
+            print (f"You won {earning} credits!")
         elif rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
-            earning = 2*bet
+            earning += 2*bet
+            if rowThree[0] == rowTwo[1] and rowTwo[1] == rowOne[2]:
+                earning += 2*bet
             print (f"You won {earning} credits!")
         else:
             print ("You lost this time.")

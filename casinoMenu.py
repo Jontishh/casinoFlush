@@ -11,7 +11,6 @@ startupMenu = {'1':'Login', '2':'Register', 'q':'Quit'}
 loginOptions = {'1':'User Information', '2':'Blackjack', '3': 'Slotmachines', 'q':'Exit'}
 failedLoginOptions = {'1':'Try again', '2':'Return'}
 user = None
-#is there another way to store values in "usernames" and "passwords" so that I dont have to repeat code?s
 
 # clear the screen
 def clear():
@@ -134,6 +133,7 @@ def gameMenu(opt):
             exit()
 
 loadUsers()
+
 while True:
     option = menu(startupMenu)
     if option == '1':
@@ -148,6 +148,4 @@ while True:
         print ('\n[Main menu]')
         option = menu(loginOptions)
         gameMenu(option)
-
-#is there an easier way to get the values of the user from the dictionary instead of saving it in global variables?
 
