@@ -1,0 +1,10 @@
+{
+    "pop": {
+        "password": "smoke",
+        "credit": 9000
+    },
+    "ken": {
+        "password": "doll",
+        "credit": 1480
+    }
+}
