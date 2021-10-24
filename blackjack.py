@@ -38,28 +38,18 @@ def total (hand):
                 total += 11
     return total
 
-def total2 (hand):
-    total = 0
-    
-    for card in hand:
-        if card[0] in range(1, 11):
-            total += card[0]
-        elif card[0] in ['J', 'Q', 'K']:
-            total += 10
-        else:
-            r = ''
-            while r is not None:
-                inp = input('Is A 1 or 11?\n')
-                if inp == '1':
-                    total += 1
-                    r = None
-                elif inp == '11':
-                    total += 11
-                    r = None
-                else:
-                    print('Invalid choice')
-                
-    return total
+# print card with suit and values
+def view_dealersCard(card):
+    value = card[0]
+    suit = card[1]
+    print('┌───────┐')
+    print(f'| {value:<2}    |')
+    print('|       |')
+    print(f'|   {suit}   |')
+    print('|       |')
+    print(f'|     {value:<2}|')
+    print('└───────┘')
+    return(f"{value} of {suit} ")
 
 def view_card(card):
     value = card[0]
@@ -86,45 +76,16 @@ def view_hand(hand):
         if len(hand) != i+1:
             string += "and "
         i += 1
-
     h = [[None]*len(hand) for i in range(7)]
     for i in range(len(hand)):
         s = view_card(hand[i])[0].split('\n')
-        # print(s)
         for j in range(len(s)):
-            # print(s[j], i, j)
             h[j][i] = s[j]
-
-    # print(h)
     o = ''
     for r in h:
         o += '    '.join(r) + '\n'
     print(o)
     return(string)
-
-# print card with suit and values
-def view_card2(card):
-    value = card[0]
-    suit = card[1]
-    print('┌───────┐')
-    print(f'| {value:<2}    |')
-    print('|       |')
-    print(f'|   {suit}   |')
-    print('|       |')
-    print(f'|     {value:<2}|')
-    print('└───────┘')
-    return(f"{value} of {suit} ")
-
-# Print hand with suits   
-# def view_hand2(hand):
-#     string = ""
-#     i = 0
-#     for card in hand:
-#         string += (view_card(card))
-#         if len(hand) != i+1:
-#             string += "and "
-#         i += 1
-#     return(string)
 
 def menu (opt):
     for i in opt:
@@ -142,7 +103,7 @@ def menu (opt):
 def blackjackGame(credit):
     earning = 0
     keepPlayingOptions = {'1':'Play again', '2':'Go back to menu'}
-    playOptions = {'1':'Stay', '2':'Hit', '3':'Double Down', '4':'Split'}
+    playOptions = {'1':'Stay', '2':'Hit', '3':'Double Down'}
     keepPlaying = True
     while keepPlaying == True:
         playerHand = []
@@ -165,7 +126,7 @@ def blackjackGame(credit):
             
         while True:
             clear()
-            print (f'Dealer has {view_card2(dealerHand[0])}and X')
+            print (f'Dealer has {view_dealersCard(dealerHand[0])}and a hidden card')
             print (f'You have {view_hand(playerHand)}for a total of {total(playerHand)}')
             playOption = menu(playOptions)
             if playOption == '1':
@@ -176,10 +137,10 @@ def blackjackGame(credit):
                 dealCard(playerHand)
                 bet *= 2
                 break
-            elif playOption == '4':
-                if playerHand(0) == playerHand(1) and len(playerHand) == 2:
-                    playerHand2 = [playerHand.pop(0)]
-                
+# Split function W.I.P.
+#             elif playOption == '4':
+#                 if playerHand(0) == playerHand(1) and len(playerHand) == 2:
+#                     playerHand2 = [playerHand.pop(0)]       
             if total(playerHand) >= 21:
                 break
         

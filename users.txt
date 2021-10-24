@@ -5,6 +5,10 @@
     },
     "ken": {
         "password": "doll",
-        "credit": 1504
+        "credit": 1524
+    },
+    "james": {
+        "password": "007",
+        "credit": 1500
     }
 }

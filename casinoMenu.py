@@ -1,16 +1,4 @@
 import json
-# user example structure
-#{
-#    "ken": {
-#        "password": "doll",
-#        "credit": 2000
-#    }
-#}
-users = {}
-startupMenu = {'1':'Login', '2':'Register', 'q':'Quit'}
-loginOptions = {'1':'User Information', '2':'Blackjack', '3': 'Slotmachines', 'q':'Exit'}
-failedLoginOptions = {'1':'Try again', '2':'Return'}
-user = None
 
 # clear the screen
 def clear():
@@ -32,6 +20,13 @@ def loadUsers():
         with open('users.txt','w') as f:
             pass
 
+# user example structure
+#{
+#    "ken": {
+#        "password": "doll",
+#        "credit": 2000
+#    }
+#}
 # Write users to json text file
 def saveUsers():
     with open('users.txt','w') as f:
@@ -69,24 +64,6 @@ def loginMenu ():
             return -1
     return username
 
-def registerMenu2 (list):
-    print ('\n[Register]\n')
-    username, password = loginInput ()
-    credits = 1500
-    list[username] = password, credits
-    while (username in list) == False or (password in list[username]) == False:
-        print ('Invalid username or password')
-        if menu(failedLoginOptions) == '1':
-            print ('\n[Login]\n')
-            username, password = loginInput ()
-            users[username] = password
-        else:
-            break
-
-    if (username in list) == True:
-        if(password in list[username]) == True:
-            return username
-
 def registerMenu():
     clear()
     print ('\n[Register]\n')
@@ -110,28 +87,32 @@ def registerMenu():
 
 def gameMenu(opt):
     clear()
-    while opt == '1':
+    if opt == '1':
         clear()
         print (f"\n{user}'s information:\n")
         print (f'Username: {user}, Password: *****, Credits: {users[user]["credit"]}$')
         opt = menu(loginOptions)
-    else:
-        if opt == '2':
-            clear()
-            print ('\nStarting blackjack...\n')
-            from blackjack import blackjackGame
-            users[user]['credit'] += blackjackGame(users[user]["credit"])
-            saveUsers()
-        elif opt == '3':
-            clear()
-            print ('\nStarting Slotmachines...\n')
-            from slotmachine import slotmachineGame
-            users[user]['credit'] += slotmachineGame(users[user]["credit"])
-            saveUsers()
-        elif opt == 'q':
-            print ('\nYou chose to exit. See you soon!')
-            exit()
+    if opt == '2':
+        clear()
+        print ('\nStarting blackjack...\n')
+        from blackjack import blackjackGame
+        users[user]['credit'] += blackjackGame(users[user]["credit"])
+        saveUsers()
+    elif opt == '3':
+        clear()
+        print ('\nStarting Slotmachines...\n')
+        from slotmachine import slotmachineGame
+        users[user]['credit'] += slotmachineGame(users[user]["credit"])
+        saveUsers()
+    elif opt == 'q':
+        print ('\nYou chose to exit. See you soon!')
+        exit()
 
+users = {}
+startupMenu = {'1':'Login', '2':'Register', 'q':'Quit'}
+loginOptions = {'1':'User Information', '2':'Blackjack', '3': 'Slotmachines', 'q':'Exit'}
+failedLoginOptions = {'1':'Try again', '2':'Return'}
+user = None
 loadUsers()
 
 while True:
