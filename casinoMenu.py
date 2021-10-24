@@ -105,7 +105,7 @@ def registerMenu():
         'credit': credits
     }
     saveUsers()
-    print(f'\nUser created, you have {credits} credits')
+    print(f'\nUser created, you have {credits}$')
     return username
 
 def gameMenu(opt):

@@ -1,7 +1,5 @@
 import random
 
-keepPlayingOptions = {"1": "Try again", "2": "Go back to main menu"}
-
 def menu (opt):
     for i in opt:
         print (f'\n{i}) {opt[i]}')
@@ -14,9 +12,9 @@ def menu (opt):
         if (i in opt) == True:
             return i
 
-def createRow (symbols, row):
+def createRow (sym, row):
     for i in range (3):
-        row.append(random.choice(symbols))
+        row.append(random.choice(sym))
     return row
 
 def showRow (row):
@@ -63,19 +61,36 @@ def slotmachineGame (credit):
                 earning += 2*bet
                 if rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
                     earning += 2*bet
+                    #Three wins both diagonals and row
+                    print (f"You won {6*(bet)}$!")
+                else:
+                    #Two wins first diagonal and row
+                    print (f"You won {4*(bet)}$!")
             elif rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
-                earning += 2*bet          
-            print (f"You won {earning} credits!")
+                earning += 2*bet
+                #Two wins "other" diagonal and row
+                print (f"You won {4*(bet)}$!")
+            else:
+                #One win
+                print (f"You won {2*(bet)}$!")
         elif rowThree[0] == rowTwo[1] and rowTwo[1] == rowOne[2]:
             earning += 2*bet
             if rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
                 earning += 2*bet
-            print (f"You won {earning} credits!")
+                #Two wins both diagonals
+                print (f"You won {4*(bet)}$!")
+            else:
+                #One win first diagonal
+                print (f"You won {2*(bet)}$!")
         elif rowOne[0] == rowTwo[1] and rowTwo[1] == rowThree[2]:
             earning += 2*bet
             if rowThree[0] == rowTwo[1] and rowTwo[1] == rowOne[2]:
                 earning += 2*bet
-            print (f"You won {earning} credits!")
+                #Two wins both diagonals
+                print (f"You won {4*(bet)}$!")
+            else:
+                #One win second diagonal
+                print (f"You won {2*(bet)}$!")
         else:
             print ("You lost this time.")
             

@@ -150,7 +150,11 @@ def blackjackGame(credit):
         
         #Add a bet
         print (f"You have {credit + earning} credits.")
-        bet = int(input ('How much do you want to bet?: '))
+        try:
+            bet = (int(input('How much do you want to bet?: ')))
+        except:
+            print ("\nInvalid input\n")
+            continue
         while bet > credit + earning or bet < 0:
                 print (f'Invalid bet amount [{bet}], your wallet: {credit + earning}')
                 bet = (int(input('How much do you want to bet?: ')))
@@ -189,13 +193,13 @@ def blackjackGame(credit):
         print (f'and the dealer has {view_hand(dealerHand)}for a total of {total(dealerHand)}')
 
         if total(playerHand) == 21 and len(playerHand) == 2:
-            print ('Blackjack! You win!')
+            print (f'Blackjack! You win {2*bet}$!')
             earning += bet
         elif total(dealerHand) == 21 and len(dealerHand) == 2:
             print ('Blackjack! Dealer wins!')
             earning += -bet
         elif total(playerHand) == 21:
-            print('You got 21! You win!')
+            print(f'You got 21! You win {2*bet}$!')
             earning += bet
         elif total(dealerHand) == 21:
             print('Dealer got 21! Dealer wins!')
@@ -204,7 +208,7 @@ def blackjackGame(credit):
             print ('You bust! Dealer wins!')
             earning += -bet
         elif total(dealerHand) > 21:
-            print ('Dealer busts! You win!')
+            print (f'Dealer busts! You win {2*bet}$!')
             earning += bet
         elif total(playerHand) == total(dealerHand):
             print ('Draw!')
@@ -212,7 +216,7 @@ def blackjackGame(credit):
             print ('Dealer wins!')
             earning += -bet
         elif 21 - total(playerHand) < 21 - total (dealerHand):
-            print ('You win!')
+            print (f'You win {2*bet}$!')
             earning += bet
         
         option = menu(keepPlayingOptions)
